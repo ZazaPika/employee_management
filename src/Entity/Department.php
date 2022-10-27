@@ -2,14 +2,11 @@
 
 namespace Drupal\employee_management\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\RevisionLogEntityTrait;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\EditorialContentEntityBase;
-use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\user\UserInterface;
 
 /**
  * Defines the Department entity.
@@ -70,17 +67,18 @@ use Drupal\user\UserInterface;
  *   field_ui_base_route = "department.settings"
  * )
  */
-class Department extends EditorialContentEntityBase implements DepartmentInterface {
+class Department extends ContentEntityBase implements DepartmentInterface {
 
   use EntityBaseTrait;
   use EntityChangedTrait;
+  use RevisionLogEntityTrait;
 
   /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
-
+    $fields += static::revisionLogBaseFieldDefinitions($entity_type);
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
       ->setDescription(t('The user ID of author of the Department entity.'))

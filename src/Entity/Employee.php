@@ -2,8 +2,9 @@
 
 namespace Drupal\employee_management\Entity;
 
+use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\RevisionLogEntityTrait;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\EditorialContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 
@@ -66,16 +67,18 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   field_ui_base_route = "employee.settings"
  * )
  */
-class Employee extends EditorialContentEntityBase implements EmployeeInterface {
+class Employee extends ContentEntityBase implements EmployeeInterface {
 
   use EntityBaseTrait;
   use EntityChangedTrait;
+  use RevisionLogEntityTrait;
 
   /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
+    $fields += static::revisionLogBaseFieldDefinitions($entity_type);
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
       ->setRevisionable(TRUE)
