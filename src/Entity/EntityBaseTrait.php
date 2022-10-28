@@ -3,7 +3,6 @@
 namespace Drupal\employee_management\Entity;
 
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\user\UserInterface;
 
 /**
@@ -21,34 +20,6 @@ trait EntityBaseTrait {
     ];
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  protected function urlRouteParameters($rel) {
-    $uri_route_parameters = parent::urlRouteParameters($rel);
-
-    if ($rel === 'revision_revert' && $this instanceof RevisionableInterface) {
-      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
-    }
-    elseif ($rel === 'revision_delete' && $this instanceof RevisionableInterface) {
-      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
-    }
-
-    return $uri_route_parameters;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function preSave(EntityStorageInterface $storage) {
-    parent::preSave($storage);
-
-    // If no revision author has been set explicitly,
-    // make the employee owner the revision author.
-    if (!$this->getRevisionUser()) {
-      $this->setRevisionUserId($this->getOwnerId());
-    }
-  }
 
   /**
    * {@inheritdoc}
