@@ -6,6 +6,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\TypedData\Exception\MissingDataException;
 
 /**
  * Defines the Department entity.
@@ -57,6 +58,21 @@ class Department extends ContentEntityBase implements DepartmentInterface {
 
   use EntityBaseTrait;
   use EntityChangedTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDescription($format = FALSE){
+    return $format ? $this->get('description')->first()->getValue() : $this->get('description')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDescription($description='', $format = 'basic_html'){
+    $this->set('created', ['value' => $description, 'format' => $format]);
+    return $this;
+  }
 
   /**
    * {@inheritdoc}

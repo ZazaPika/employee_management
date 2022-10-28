@@ -59,6 +59,113 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
   use EntityChangedTrait;
 
   /**
+   * @return string|null
+   */
+  public function getLastname() {
+    return $this->get('lastname')->value;
+  }
+
+  /**
+   * @param $lastname
+   * @return $this
+   */
+  public function setLastname($lastname) {
+    $this->set('lastname', $lastname);
+    return $this;
+  }
+
+  /**
+   * @return string|null
+   */
+  public function getFirstname() {
+    return $this->get('firstname')->value;
+  }
+
+  /**
+   * @param $firstname
+   * @return $this
+   */
+  public function setFirstname($firstname) {
+    $this->set('firstname', $firstname);
+    return $this;
+  }
+
+  /**
+   * @return string|null
+   */
+  public function getAddress() {
+    return $this->get('address')->value;
+  }
+
+  /**
+   * @param $address
+   * @return $this
+   */
+  public function setAddress($address) {
+    $this->set('address', $address);
+    return $this;
+  }
+
+  /**
+   * @return string|null
+   */
+  public function getPhone() {
+    return $this->get('phone')->value;
+  }
+
+  /**
+   * @param $phone
+   * @return $this
+   */
+  public function setPhone($phone = '') {
+    $this->set('phone', $phone);
+    return $this;
+  }
+
+  /**
+   * @return array
+   */
+  public function getHobbies() {
+    if (!$values = $this->get('hobbies')->getValue())
+      return [];
+    return array_filter(
+      array_map(function ($item) {
+      return $item['value'] ?? NULL;
+    }, $values));
+  }
+
+  /**
+   * @param $hobbies
+   * @return $this
+   */
+  public function setHobbies($hobbies = []) {
+    $this->set('hobbies', $hobbies);
+    return $this;
+  }
+
+  /**
+   * @param $load
+   * @return DepartmentInterface|NULL
+   */
+  public function getDepartment($load  = FALSE) {
+    $id = $this->get('department')->target_id;
+    if (!$load || !$id)
+      return $id;
+    /** @var \Drupal\Core\Entity\Plugin\DataType\EntityReference $entityReference */
+    $reference =  $this->get('department')->first()->get('entity');
+    return $reference->getTarget()->getValue();
+  }
+
+  /**
+   * @param $id
+   * @return $this
+   */
+  public function setDepartment($id) {
+    $this->set('department', $id);
+    return $this;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
