@@ -24,7 +24,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ingroup employee_management
  */
 class EntityStorage extends SqlContentEntityStorage implements EntityStorageInterface {
-
+  /**
+   * @var HistoryManagerInterface
+   */
+  protected $historyManager;
 
   /**
    * @param EntityTypeInterface $entity_type
@@ -35,6 +38,7 @@ class EntityStorage extends SqlContentEntityStorage implements EntityStorageInte
    * @param MemoryCacheInterface $memory_cache
    * @param EntityTypeBundleInfoInterface $entity_type_bundle_info
    * @param EntityTypeManagerInterface $entity_type_manager
+   * @param HistoryManagerInterface $history_manager
    */
   public function __construct(EntityTypeInterface           $entity_type,
                               Connection                    $database,
@@ -43,9 +47,11 @@ class EntityStorage extends SqlContentEntityStorage implements EntityStorageInte
                               LanguageManagerInterface      $language_manager,
                               MemoryCacheInterface          $memory_cache,
                               EntityTypeBundleInfoInterface $entity_type_bundle_info,
-                              EntityTypeManagerInterface    $entity_type_manager
+                              EntityTypeManagerInterface    $entity_type_manager,
+                              HistoryManagerInterface       $history_manager
   ) {
     parent::__construct($entity_type, $database, $entity_field_manager, $cache, $language_manager, $memory_cache, $entity_type_bundle_info, $entity_type_manager);
+    $this->historyManager = $history_manager;
   }
 
   /**
@@ -60,7 +66,8 @@ class EntityStorage extends SqlContentEntityStorage implements EntityStorageInte
       $container->get('language_manager'),
       $container->get('entity.memory_cache'),
       $container->get('entity_type.bundle.info'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('event_history.manager')
     );
   }
 

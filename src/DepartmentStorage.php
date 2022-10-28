@@ -26,9 +26,10 @@ class DepartmentStorage extends EntityStorage {
                               LanguageManagerInterface      $language_manager,
                               MemoryCacheInterface          $memory_cache,
                               EntityTypeBundleInfoInterface $entity_type_bundle_info,
-                              EntityTypeManagerInterface    $entity_type_manager
-  ) {
-    parent::__construct($entity_type, $database, $entity_field_manager, $cache, $language_manager, $memory_cache, $entity_type_bundle_info, $entity_type_manager);
+                              EntityTypeManagerInterface    $entity_type_manager,
+                              HistoryManagerInterface       $history_manager
+  ){
+    parent::__construct($entity_type, $database, $entity_field_manager, $cache, $language_manager, $memory_cache, $entity_type_bundle_info, $entity_type_manager, $history_manager);
     $this->employeeStorage = $entity_type_manager->getStorage('employee');
   }
 }
