@@ -20,4 +20,37 @@ class HistoryManager implements HistoryManagerInterface {
     $this->dbConnection = $connection;
     $this->time = $time;
   }
+
+  /**
+   * @return array[]
+   */
+  public static function getSchema() {
+    return [
+      static::TABLE => [
+        'fields' => [
+          'hid' => [
+            'type' => 'serial',
+            'not null' => TRUE,
+            'description' => 'Primary Key: Unique log ID.'
+          ],
+          'uid' => [
+            'type' => 'int',
+            'not null' => TRUE,
+            'description' => 'User id'
+          ],
+          'event' => [
+            'type' => 'int',
+            'not null' => TRUE,
+            'description' => 'Event type'
+          ],
+          'context' => [
+            'type' => 'blob',
+            'not null' => TRUE,
+            'size' => 'big'
+          ]
+        ],
+        'primary key' => ['hid']
+      ]
+    ];
+  }
 }

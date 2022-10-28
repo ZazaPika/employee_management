@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function employee_management_install() {
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function employee_management_uninstall() {
+
+}
+
+/**
+ * Implements hook_schema().
+ */
+function employee_management_schema() {
+  return \Drupal\employee_management\HistoryManager::getSchema();
+}
