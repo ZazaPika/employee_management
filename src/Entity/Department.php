@@ -17,7 +17,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   label = @Translation("Department"),
  *   handlers = {
  *     "storage" = "Drupal\employee_management\EntityStorage",
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "view_builder" = "Drupal\employee_management\DepartmentViewBuilder",
  *     "list_builder" = "Drupal\employee_management\DepartmentListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *
