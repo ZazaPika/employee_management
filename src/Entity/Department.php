@@ -6,7 +6,6 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\TypedData\Exception\MissingDataException;
 
 /**
  * Defines the Department entity.
@@ -17,7 +16,7 @@ use Drupal\Core\TypedData\Exception\MissingDataException;
  *   id = "department",
  *   label = @Translation("Department"),
  *   handlers = {
- *     "storage" = "Drupal\employee_management\DepartmentStorage",
+ *     "storage" = "Drupal\employee_management\EntityStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\employee_management\DepartmentListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
@@ -72,6 +71,18 @@ class Department extends ContentEntityBase implements DepartmentInterface {
   public function setDescription($description='', $format = 'basic_html'){
     $this->set('created', ['value' => $description, 'format' => $format]);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRelatedEmployee($load = FALSE) {
+    $storage = $this->entityTypeManager()->getStorage('employee');
+    if ($this->isNew())
+      return [];
+    $query = $storage->getQuery();
+    $ids = $query->condition('department', $this->id())->execute();
+    return $load ? $storage->loadMultiple($ids) : $ids;
   }
 
   /**

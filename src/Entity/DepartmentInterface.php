@@ -2,6 +2,8 @@
 
 namespace Drupal\employee_management\Entity;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\Core\TypedData\Exception\MissingDataException;
@@ -27,6 +29,13 @@ interface DepartmentInterface extends ContentEntityInterface, EntityChangedInter
    * @return \Drupal\employee_management\Entity\DepartmentInterface
    */
   public function setDescription($description='', $format = 'basic_html');
+  /**
+   * @param $load
+   * @return EmployeeInterface[]
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   */
+  public function getRelatedEmployee($load = FALSE);
 
   /**
    * Gets the Department creation timestamp.

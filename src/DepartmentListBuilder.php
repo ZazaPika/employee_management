@@ -21,6 +21,7 @@ class DepartmentListBuilder extends EntityListBuilder {
       'id' => $this->t('Department ID'),
       'name' => $this->t('Name'),
       'description'=> $this->t('Description'),
+      'employees'=> $this->t('Employees (count)'),
     ];
     return $header + parent::buildHeader();
   }
@@ -34,7 +35,8 @@ class DepartmentListBuilder extends EntityListBuilder {
     $row = [
       'id' => $entity->id(),
       'name' => Link::createFromRoute($entity->label(), 'entity.department.canonical', ['department' => $entity->id()]),
-      'description'=>  strlen($description) > 50 ? substr($description,0,50) . ' ...' : $description
+      'description'=>  strlen($description) > 50 ? substr($description,0,50) . ' ...' : $description,
+      'employees' => count($entity->getRelatedEmployee())
     ];
     return $row + parent::buildRow($entity);
   }
