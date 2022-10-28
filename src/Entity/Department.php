@@ -17,7 +17,7 @@ use Drupal\Core\TypedData\Exception\MissingDataException;
  *   id = "department",
  *   label = @Translation("Department"),
  *   handlers = {
- *     "storage" = "Drupal\Core\Entity\Sql\SqlContentEntityStorage",
+ *     "storage" = "Drupal\employee_management\DepartmentStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\employee_management\DepartmentListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",

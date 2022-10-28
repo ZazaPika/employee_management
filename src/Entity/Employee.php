@@ -16,7 +16,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   id = "employee",
  *   label = @Translation("Employee"),
  *   handlers = {
- *     "storage" = "Drupal\Core\Entity\Sql\SqlContentEntityStorage",
+ *     "storage" = "Drupal\employee_management\EntityStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\employee_management\EmployeeListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
