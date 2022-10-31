@@ -1,0 +1,30 @@
+rh.admin:
+  title: 'Human resources'
+  route_name: rh.admin
+  weight: 0
+  parent: system.admin
+# Employee menu items definition
+entity.employee.collection:
+  title: 'Employee list'
+  route_name: entity.employee.collection
+  description: 'List Employee entities'
+  parent: rh.admin
+
+employee.admin.structure.settings:
+  title: 'Employee settings'
+  description: 'Configure Employee entities'
+  route_name: employee.settings
+  parent: rh.admin
+
+# Department menu items definition
+entity.department.collection:
+  title: 'Department list'
+  route_name: entity.department.collection
+  description: 'List Department entities'
+  parent: rh.admin
+
+department.admin.structure.settings:
+  title: 'Department settings'
+  description: 'Configure Department entities'
+  route_name: department.settings
+  parent: rh.admin

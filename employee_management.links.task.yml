@@ -1,0 +1,44 @@
+# Employee routing definition
+employee.settings_tab:
+  route_name: employee.settings
+  title: 'Settings'
+  base_route: employee.settings
+
+entity.employee.canonical:
+  route_name: entity.employee.canonical
+  base_route: entity.employee.canonical
+  title: 'View'
+
+entity.employee.edit_form:
+  route_name: entity.employee.edit_form
+  base_route: entity.employee.canonical
+  title: 'Edit'
+
+entity.employee.delete_form:
+  route_name:  entity.employee.delete_form
+  base_route:  entity.employee.canonical
+  title: Delete
+  weight: 10
+# Department routing definition
+department.settings_tab:
+  route_name: department.settings
+  title: 'Settings'
+  base_route: department.settings
+
+entity.department.canonical:
+  route_name: entity.department.canonical
+  base_route: entity.department.canonical
+  title: 'View'
+
+entity.department.edit_form:
+  route_name: entity.department.edit_form
+  base_route: entity.department.canonical
+  title: 'Edit'
+
+entity.department.delete_form:
+  route_name:  entity.department.delete_form
+  base_route:  entity.department.canonical
+  title: Delete
+  weight: 10
+
+
