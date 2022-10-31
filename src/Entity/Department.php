@@ -45,11 +45,11 @@ use Drupal\file\FileInterface;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/admin/department/{department}",
- *     "add-form" = "/admin/department/add",
- *     "edit-form" = "/admin/department/{department}/edit",
- *     "delete-form" = "/admin/department/{department}/delete",
- *     "collection" = "/admin/department",
+ *     "canonical" = "/admin/human-resources/department/{department}",
+ *     "add-form" = "/admin/human-resources/department/add",
+ *     "edit-form" = "/admin/human-resources/department/{department}/edit",
+ *     "delete-form" = "/admin/human-resources/department/{department}/delete",
+ *     "collection" = "/admin/human-resources/department",
  *   },
  *   field_ui_base_route = "department.settings"
  * )
@@ -106,14 +106,14 @@ class Department extends ContentEntityBase implements DepartmentInterface {
     $image = $this->getImage(TRUE);
     if (!$full) {
       return [
-        'id' => $this->id(),
+        'id' => (int)$this->id(),
         'name' => $this->label(),
         'image' => $image ? $image->createFileUrl(FALSE) : NULL,
         'employees' => count($this->getRelatedEmployee())
       ];
     }
     return [
-      'id' => $this->id(),
+      'id' => (int)$this->id(),
       'name' => $this->label(),
       'image' => $image ? $image->createFileUrl(FALSE) : NULL,
       'employees' => array_map(function (EmployeeInterface $employee) {

@@ -1,0 +1,31 @@
+api.department:
+  path: '/api/human-resources/department/{department}'
+  defaults:
+    _controller: '\Drupal\employee_management\Controller\DepartmentController::getDepartment'
+    _format: json
+  requirements:
+    _access: 'TRUE'
+
+api.department.list:
+  path: '/api/human-resources/departments'
+  defaults:
+    _controller: '\Drupal\employee_management\Controller\DepartmentController::getDepartmentList'
+    _format: json
+  requirements:
+    _access: 'TRUE'
+
+api.employee:
+  path: '/api/human-resources/employee/{employee}'
+  defaults:
+    _controller: '\Drupal\employee_management\Controller\EmployeeController::getEmployee'
+    _format: json
+  requirements:
+    _access: 'TRUE'
+
+api.employee.list:
+  path: '/api/human-resources/employees'
+  defaults:
+    _controller: '\Drupal\employee_management\Controller\EmployeeController::getEmployeeList'
+    _format: json
+  requirements:
+    _access: 'TRUE'

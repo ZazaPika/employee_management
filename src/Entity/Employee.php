@@ -44,11 +44,11 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/admin/employee/{employee}",
- *     "add-form" = "/admin/employee/add",
- *     "edit-form" = "/admin/employee/{employee}/edit",
- *     "delete-form" = "/admin/employee/{employee}/delete",
- *     "collection" = "/admin/employee",
+ *     "canonical" = "/admin/human-resources/employee/{employee}",
+ *     "add-form" = "/admin/human-resources/employee/add",
+ *     "edit-form" = "/admin/human-resources/employee/{employee}/edit",
+ *     "delete-form" = "/admin/human-resources/employee/{employee}/delete",
+ *     "collection" = "/admin/human-resources/employee",
  *   },
  *   field_ui_base_route = "employee.settings"
  * )
@@ -170,13 +170,13 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
   public function toArray($full = FALSE) {
     if (!$full) {
       return [
-        'id' => $this->id(),
+        'id' => (int)$this->id(),
         'name' => $this->label()
       ];
     }
     $departement = $this->getDepartment(TRUE);
     return [
-      'id' => $this->id(),
+      'id' => (int)$this->id(),
       'lastname' => $this->getLastname(),
       'firstname' => $this->getFirstname(),
       'departement' => $departement ? $departement->toArray() : NULL,
