@@ -6,6 +6,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\file\FileInterface;
 
 /**
  * Defines the Department entity.
@@ -74,6 +75,19 @@ class Department extends ContentEntityBase implements DepartmentInterface {
   }
 
   /**
+   * @param $load
+   * @return FileInterface|null
+   */
+  public function getImage($load = FALSE) {
+    $id = $this->get('image')->target_id;
+    if (!$load || !$id)
+      return $id;
+    /** @var \Drupal\Core\Entity\Plugin\DataType\EntityReference $entityReference */
+    $reference =  $this->get('image')->first()->get('entity');
+    return $reference->getTarget()->getValue();
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getRelatedEmployee($load = FALSE) {
@@ -83,6 +97,29 @@ class Department extends ContentEntityBase implements DepartmentInterface {
     $query = $storage->getQuery();
     $ids = $query->condition('department', $this->id())->execute();
     return $load ? $storage->loadMultiple($ids) : $ids;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function toArray($full = FALSE) {
+    $image = $this->getImage(TRUE);
+    if (!$full) {
+      return [
+        'id' => $this->id(),
+        'name' => $this->label(),
+        'image' => $image ? $image->createFileUrl(FALSE) : NULL,
+        'employees' => count($this->getRelatedEmployee())
+      ];
+    }
+    return [
+      'id' => $this->id(),
+      'name' => $this->label(),
+      'image' => $image ? $image->createFileUrl(FALSE) : NULL,
+      'employees' => array_map(function (EmployeeInterface $employee) {
+        return $employee->toArray(FALSE);
+      }, $this->getRelatedEmployee(TRUE))
+    ];
   }
 
   /**

@@ -164,6 +164,27 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
     $this->set('department', $id);
     return $this;
   }
+  /**
+   * {@inheritdoc}
+   */
+  public function toArray($full = FALSE) {
+    if (!$full) {
+      return [
+        'id' => $this->id(),
+        'name' => $this->label()
+      ];
+    }
+    $departement = $this->getDepartment(TRUE);
+    return [
+      'id' => $this->id(),
+      'lastname' => $this->getLastname(),
+      'firstname' => $this->getFirstname(),
+      'departement' => $departement ? $departement->toArray() : NULL,
+      'address' => $this->getAddress(),
+      'phone' => $this->getPhone(),
+      'hobbies' => $this->getHobbies()
+    ];
+  }
 
   /**
    * {@inheritdoc}
