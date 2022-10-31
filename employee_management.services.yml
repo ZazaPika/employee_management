@@ -1,0 +1,9 @@
+services:
+  event_history.manager:
+    class: Drupal\employee_management\HistoryManager
+    arguments: ['@database', '@datetime.time']
+
+  api.handler:
+    class: Drupal\employee_management\RestCallbackHandler
+    arguments: ['@entity_type.manager', '@logger.factory']
+
