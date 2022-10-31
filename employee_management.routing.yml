@@ -5,6 +5,18 @@ rh.admin:
     _title: 'Human resources'
   requirements:
     _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+rh.history:
+  path: '/admin/human-resources/event-history'
+  defaults:
+    _form: '\Drupal\employee_management\Form\EventHistoryForm'
+    _title: 'Event History'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
 
 api.department:
   path: '/api/human-resources/department/{department}'

@@ -3,6 +3,12 @@ rh.admin:
   route_name: rh.admin
   weight: 0
   parent: system.admin
+
+event.history.collection:
+  title: 'Event list'
+  route_name: rh.history
+  description: 'List event history'
+  parent: rh.admin
 # Employee menu items definition
 entity.employee.collection:
   title: 'Employee list'
