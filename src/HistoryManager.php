@@ -74,7 +74,7 @@ class HistoryManager implements HistoryManagerInterface {
     return [
       'date' => $date->format('d/m/Y - H:i'),
       'type' => HistoryManagerInterface::EVENTS_LABEL[$resulset['event']] ?? '',
-      'user' => sprintf('%s (%d)', $resulset['username'] ?? 'anonymous',$resulset['uid']),
+      'user' => sprintf('%s (%d)', (!empty($resulset['username']) ? $resulset['username'] :  'anonymous'), $resulset['uid']),
       'context' => json_encode(@unserialize($resulset['context']))
     ];
   }
