@@ -45,6 +45,11 @@ class EmployeeController extends ControllerBase implements ContainerInjectionInt
     );
   }
 
+  /**
+   * @param $employee
+   * @param Request $request
+   * @return JsonResponse
+   */
   public function getEmployee($employee = NULL, Request $request){
     $response = new JsonResponse();
     $entity = $this->callbackHandler->getEmployeeById($employee);
@@ -52,9 +57,15 @@ class EmployeeController extends ControllerBase implements ContainerInjectionInt
     if($entity){
       $response->setData($entity->toArray(TRUE));
     }
+    $this->historyManager->insertEntry(HistoryManagerInterface::API_CALLBACK_EVENT,
+      ['path' => $request->getPathInfo()] + $request->headers->all());
     return $response;
   }
 
+  /**
+   * @param Request $request
+   * @return JsonResponse
+   */
   public function getEmployeeList(Request $request){
     $response = new JsonResponse();
     $employees = $this->callbackHandler->getEmployees();
@@ -66,6 +77,8 @@ class EmployeeController extends ControllerBase implements ContainerInjectionInt
           return $employee->toArray();
         },$employees)]);
     }
+    $this->historyManager->insertEntry(HistoryManagerInterface::API_CALLBACK_EVENT,
+      ['path' => $request->getPathInfo()] + $request->headers->all());
     return $response;
   }
 }

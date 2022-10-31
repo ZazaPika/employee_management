@@ -58,6 +58,8 @@ class DepartmentController extends ControllerBase implements ContainerInjectionI
     if($entity){
       $response->setData($entity->toArray(TRUE));
     }
+    $this->historyManager->insertEntry(HistoryManagerInterface::API_CALLBACK_EVENT,
+      ['path' => $request->getPathInfo()] + $request->headers->all());
     return $response;
   }
 
@@ -76,6 +78,8 @@ class DepartmentController extends ControllerBase implements ContainerInjectionI
           return $department->toArray();
         },$departments)]);
     }
+    $this->historyManager->insertEntry(HistoryManagerInterface::API_CALLBACK_EVENT,
+      ['path' => $request->getPathInfo()] + $request->headers->all());
     return $response;
   }
 }

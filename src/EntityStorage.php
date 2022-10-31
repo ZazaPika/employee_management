@@ -77,8 +77,26 @@ class EntityStorage extends SqlContentEntityStorage implements EntityStorageInte
   public function save(EntityInterface $entity) {
     $is_new = $entity->isNew();
     if($result = parent::save($entity)) {
-
+      $this->historyManager->insertEntry(
+        $is_new ? HistoryManagerInterface::ADD_EVENT : HistoryManagerInterface::UPDATE_EVENT,
+        ['entityType' => $entity->getEntityTypeId()] + $entity->toArray(TRUE)
+      );
     }
     return $result;
+  }
+  /**
+   * {@inheritdoc}
+   */
+  public function delete(array $entities){
+    if (!$entities) {
+      return;
+    }
+    foreach ($entities as $entity) {
+      $this->historyManager->insertEntry(
+        HistoryManagerInterface::DELETE_EVENT,
+        ['entityType' => $entity->getEntityTypeId()] + $entity->toArray(TRUE)
+      );
+    }
+    return parent::delete($entities);
   }
 }
