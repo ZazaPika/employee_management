@@ -1,7 +1,7 @@
 services:
   event_history.manager:
     class: Drupal\employee_management\HistoryManager
-    arguments: ['@database', '@datetime.time']
+    arguments: ['@database', '@datetime.time', '@current_user']
 
   api.handler:
     class: Drupal\employee_management\RestCallbackHandler
